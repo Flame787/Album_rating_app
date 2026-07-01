@@ -2,7 +2,7 @@ import { setupNavbar } from "./modules/navbar.js";
 
 import { setupThemeManager } from "./modules/themes.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {  // When the DOM is fully loaded, functions are called (from modules):
   setupNavbar();
   setupThemeManager();
 });
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Function for warning if the input-field is empty:
+    // Function for warning if the input-field is empty - validation:
     function displayMessage(container, text) {
       const message = document.createElement("p");
       message.textContent = text;
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // helper-function 'handleSearch' used to FETCH and DISPLAY results, and to focus on the Search results
     // 'handleSearch'-function CALLS other important functions: checkCategories(query) -> fetchSearchResults -> await displaySearchResults(query):
 
-    async function handleSearch() {
+    async function handleSearch() { // main function which handles the search process - asnyc because it calls async functions: fetchSearchResults
       const query = searchInput.value.trim(); // fetch the input value
       // container near the input field
 
@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // - - - - - - Check and display ARTISTS: - - - - - - - - - - - - -
 
-    function showArtists(results) {
+    function showArtists(results) { // shows LIST of artists based on search query
       // if (results && results.length > 0) {
       //   console.log("showArtist function:", results); // test
 
@@ -1293,20 +1293,20 @@ document.addEventListener("DOMContentLoaded", () => {
           .scrollIntoView({ behavior: "smooth", block: "start" });
 
         const listItem = event.currentTarget.closest("li");
-        const songText = listItem.querySelector(".song")?.textContent ?? "";
-        const artistText = listItem.querySelector(".artist")?.textContent ?? "";
+        const songText = listItem.querySelector(".song")?.textContent ?? ""; // optional chaining & nullish coalescing (combining) to avoid errors if element not found
+        const artistText = listItem.querySelector(".artist")?.textContent ?? ""; 
         const albumText = listItem.querySelector(".album")?.textContent ?? "";
         const imageText =
           listItem.querySelector(".hidden-element.image")?.textContent ?? "";
         const idText =
-          listItem.querySelector(".hidden-element.id")?.textContent ?? "";
+          listItem.querySelector(".hidden-element.id")?.textContent ?? ""; // idText is fetched from the hidden element in the card 
 
         if (!idText) {
           console.warn("Track ID not found in item.");
           return;
         }
 
-        playTrack(idText);
+        playTrack(idText); // function which plays the track via track ID 
         updateSongPlayingInfo(songText, artistText, albumText, imageText);
       });
 
@@ -1421,9 +1421,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   // here ends Todo function.
 
-  const todo = new Todo();
+  const todo = new Todo(); // we create an instance of the function Todo because it uses encapsulation to avoid global variables
 
-  window.addEventListener("load", todo.init);
+  window.addEventListener("load", todo.init); // when window is loaded, we call the init-function from the instance 'todo' of the function Todo
 })();
 
 // IN ADDITION AFTER THE MAIN FUNCTION, global functions:

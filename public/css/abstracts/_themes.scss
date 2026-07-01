@@ -3,7 +3,7 @@
 // variable $themes is an object, has many different key-value pairs. Values may consist of several css-atributes.
 
 $backgrounds: (
-  theme0: url("../pictures/Abstract-Swirl7.jpg"),
+  theme0: url("../pictures/Abstract-Swirl7.jpg"), // default theme
   //Theme
   theme1: url("../pictures/purple-lights2.jpg"),
   //Disco
@@ -40,7 +40,7 @@ $backgrounds: (
 
 $headerThemes: (
   theme0: (
-    background: radial-gradient(at 25% 75%, #0800058e, rgba(9, 20, 36, 0.652)),
+    background: radial-gradient(at 25% 75%, #0800058e, rgba(9, 20, 36, 0.652)), // background for default theme (theme0)
   ),
   //Theme
 
@@ -420,7 +420,7 @@ $defaultColor: $fontColor2;
 $noShadowColor: $textShadowColor1;
 $noShadow: none;
 
-// creating empty map with themes for common values:
+// creating empty map with themes for common values - initializing the variable before using the loop:
 $fontColors: ();
 
 // themes with white font and shadowing:

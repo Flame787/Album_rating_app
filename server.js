@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import dotenv from "dotenv"; // to load environment variables from a .env file into process.env
 dotenv.config();
 
 // Dependencies:
@@ -12,17 +12,17 @@ import { fileURLToPath } from "url";
 // static files (e.g., CSS, JS) are served from the public folder
 // the / route serves an index.html file from the root directory of the project using sendFile
 
-// Calculate __dirname:
+// Calculate __dirname in ES module scope:
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Initialize Express app:
 const app = express();
 
-// serve static files:
+// serve static files from the 'public' directory:
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Define port:
+// Define port - either from environment variable or default to 4000:
 const PORT = process.env.PORT || 4000;
 
 // Client ID & Client Secret securely saved in the .env file, fetched here via variables:
@@ -31,10 +31,10 @@ const clientSecret = process.env.client_secret;
 
 
 // const redirect_uri = "http://localhost:3000/callback";
-// *if using SDK player, it's very important that the callback link (redirect page after user login) is localhost:3000/callback
-// but for client authorisation we can use simply this redirect_uri:
+// *if using SDK player, it's very important that the callback link (redirect page after user login) is localhost:3000/callback 
+// but for client authorisation we can use simply this redirect_uri: 
 const redirect_uri = "http://localhost:4000";
-// -> the same link should be also set in Spotify Dashboard (Settings) as redirect-link!
+// -> the same link should be also set in Spotify Dashboard (Settings) as redirect-link! 
 
 const auth_endpoint = "https://accounts.spotify.com/authorize";
 const response_type = "token";
@@ -43,7 +43,7 @@ const response_type = "token";
 app.use(cors());
 // app.use(express.static("public"));
 // - for stacit files (pictures etc), index.JS, all CSS files - in map 'public' -> Express serves them at request
-app.use(express.json());
+app.use(express.json()); // Parsing incoming requests with JSON payloads
 app.use(bodyParser.urlencoded({ extended: true })); // Parsing the body of our request into URL
 
 // Global variable for storing access token (initially has no value):
@@ -60,8 +60,8 @@ let isFetchingToken = false; // New variable for tracking the status of token fe
 
 // Route for serving 'index.html' (home page: '/'):
 // If index.html is in the same map as server.js (on the same 'hierarchy level'), the path to index.html should look like this:
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/index.html"));
+app.get("/", (req, res) => { // when user goes to the root of the app (localhost:4000/), this route is called
+  res.sendFile(path.join(__dirname + "/index.html"));  // we send the index.html file as response
 });
 
 // Route for serving Favorites / My playlists page:
@@ -212,7 +212,7 @@ app.get("/api/token", async (req, res) => {
 
 // Backend defines an AOI-endpoint (call it /api/suggestions or /api/search or similar).
 // When a request was sent from frontend to this endpoint, server is handling user request, fetching results, and returning them in json-format:
-app.get("/api/search", async (req, res) => {
+app.get("/api/search", async (req, res) => {   // route for searching items (artists, albums, tracks...)
   const query = req.query.q; // user's query/input
   const type = req.query.type || "artist,album,track"; // type of the search, f.e. artist, album, track
   // NEW 22.10.:

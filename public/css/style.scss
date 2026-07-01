@@ -18,20 +18,20 @@
 // PAGE-BACKGROUND-IMAGES:
 
 body {
-  @each $theme, $background in $backgrounds {
-    &.#{$theme} {
-      background-image: $background !important;
+  @each $theme, $background in $backgrounds { // $theme gets the key (theme1, theme2...), $background gets the value from the map $backgrounds
+    &.#{$theme} {  // & - refers to body element, #{$theme} - gets the key from the map
+      background-image: $background !important; // !important to override other background-images
     }
   }
-}
+} 
 
 // FONT-COLORS AND TEXT-SHADOWS:
 
 body {
-  @each $theme, $properties in $fontColors {
+  @each $theme, $properties in $fontColors { // $theme gets the key (theme1, theme2...), $properties gets the value from the map $fontColors
     &.#{$theme} {
-      color: map-get($properties, color) !important;
-      text-shadow: map-get($properties, text-shadow) !important;
+      color: map-get($properties, color) !important; // get color from the map
+      text-shadow: map-get($properties, text-shadow) !important; // get text-shadow from the map
     }
   }
 }
@@ -39,11 +39,11 @@ body {
 // BUTTONS - NAVIGATION, THEME, SUBMIT/ADD-BUTTONS:
 
 .theme-button {
-  @each $theme, $map in $themes {
-    .#{$theme} & {
-      background-color: map-get($map, background-color);
-      background-image: map-get($map, background-image);
-      color: map-get($map, color);
+  @each $theme, $map in $themes { // $theme gets the key (theme1, theme2...), $map gets the value from the map $themes
+    .#{$theme} & { // parent element gets the class
+      background-color: map-get($map, background-color); // get background-color from the map - for each theme
+      background-image: map-get($map, background-image); // get background-image from the map 
+      color: map-get($map, color); // get color from the map
       border: map-get($map, border);
       box-shadow: map-get($map, box-shadow);
     }
@@ -57,23 +57,23 @@ body {
 .dropdown-menu,
 .show-more-button,
 .play-button {
-  @extend .theme-button;
+  @extend .theme-button; // all these classes get the same styles as .theme-button
 }
 
 //Ancor (Nav-) buttons have the same color like Select/Add buttons:
 
 button a {
   @each $theme, $map in $themes {
-    .#{$theme} & {
-      color: map-get($map, color);
+    .#{$theme} & { // parent element gets the class
+      color: map-get($map, color); // get color from the map
     }
   }
 }
 
 // REMOVE-BUTTONS (darker gradients):
 
-.remove-button {
-  @each $theme, $map in $themes2 {
+.remove-button { // class for Remove-from-favorites button
+  @each $theme, $map in $themes2 { // $theme gets the key (theme1, theme2...), $map gets the value from the map $themes2
     .#{$theme} & {
       background-color: map-get($map, background-color);
       background-image: map-get($map, background-image);
@@ -89,7 +89,7 @@ button a {
 .form-theme {
   @each $formTheme, $map in $formThemes {
     .#{$formTheme} & {
-      background: map-get($map, background);
+      background: map-get($map, background); // get background from the map
       background-color: map-get($map, background-color);
       color: map-get($map, color);
       text-shadow: map-get($map, text-shadow);
@@ -122,7 +122,7 @@ button a {
 // REPEATING CATEGORIES-CLASS ".THIN" (artist, song, album, rate), added in JS:
 
 .thin {
-  @each $thinColor, $map in $thinColors {
+  @each $thinColor, $map in $thinColors { // $thinColor gets the key (thin1, thin2...), $map gets the value from the map $thinColors
     .#{$thinColor} & {
       color: map-get($map, color);
     }
@@ -1651,7 +1651,7 @@ iframe {
   }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 370px) { 
   // Iphone SE: 375 X 667
   .red {
     height: 200px;
